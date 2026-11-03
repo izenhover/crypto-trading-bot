@@ -1,8 +1,5 @@
 <img width="1440" height="900" alt="Screenshot (166)" src="https://github.com/user-attachments/assets/3f789912-4978-4b5a-ac94-14ae00f60007" />
 # 🤖 Crypto Algorithmic Trading Bot (Architecture Showcase)
-
-![Dashboard Demo](dashboard.png)
-
 A sophisticated, multi-layered algorithmic trading system designed for the cryptocurrency market. This repository serves as a **portfolio showcase** of the architecture, machine learning pipeline, risk management engine, and interactive dashboard.
 
 ## ⚠️ Disclaimer & Intellectual Property
@@ -30,3 +27,4 @@ To demonstrate the UI, a `run_demo.py` script is included. It generates **mock d
    ```bash
    git clone https://github.com/izenhover/crypto-trading-bot.git
    cd crypto-trading-bot
+<img width="1440" height="900" alt="Screenshot (167)" src="https://github.com/user-attachments/assets/e72e1eae-02fe-4136-8979-a30eb4ee81d7" />
