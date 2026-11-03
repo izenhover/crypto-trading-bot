@@ -1,0 +1,20 @@
+# Environment & Secrets
+.venv/
+__pycache__/
+*.pyc
+config/api_keys.env
+.env
+
+# Data & Models (PROTECTED IP)
+data/
+models/
+*.pkl
+*.pt
+*.parquet
+logs/
+notebooks/
+
+# OS & IDE
+.DS_Store
+.vscode/
+.idea/

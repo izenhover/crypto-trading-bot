@@ -1,0 +1,114 @@
+# config/settings.yaml
+project:
+  name: "Crypto Prediction Bot"
+  version: "0.1.0"
+  environment: "development"
+
+exchange:
+  name: "binance"
+  testnet: true
+  symbols:
+    - "BTCUSDT"
+    - "ETHUSDT"
+  timeframes:
+    - "1m"
+    - "5m"
+    - "30m"
+    - "1h"
+    - "4h"
+
+data:
+  storage:
+    type: "postgresql"
+    host: "localhost"
+    port: 5432
+    database: "crypto_bot"
+    user: "crypto_user"
+  redis:
+    host: "localhost"
+    port: 6379
+    db: 0
+  cache_ttl_seconds: 60
+  historical_days: 180
+
+features:
+  technical:
+    rsi_period: 14
+    macd_fast: 12
+    macd_slow: 26
+    macd_signal: 9
+    bb_period: 20
+    bb_std: 2
+    atr_period: 14
+  lookback_windows: [5, 20, 60]
+  target_horizon: 1
+
+regime:
+  n_regimes: 4
+  hmm_iterations: 1000
+  hmm_covariance: "full"
+  features: ["returns", "volatility", "volume_change"]
+
+models:
+  xgboost:
+    n_estimators: 200
+    max_depth: 6
+    learning_rate: 0.05
+    subsample: 0.8
+    colsample_bytree: 0.8
+  lightgbm:
+    n_estimators: 200
+    max_depth: 6
+    learning_rate: 0.05
+    num_leaves: 31
+  lstm:
+    hidden_size: 128
+    num_layers: 3
+    dropout: 0.3
+    sequence_length: 60
+    epochs: 50
+    batch_size: 64
+    learning_rate: 0.001
+  random_forest:
+    n_estimators: 200
+    max_depth: 10
+    min_samples_split: 5
+  ensemble:
+    method: "meta_learner"
+    weights_by_regime:
+      BULL: {xgboost: 0.4, lightgbm: 0.3, lstm: 0.2, rf: 0.1}
+      BEAR: {xgboost: 0.5, lightgbm: 0.3, lstm: 0.1, rf: 0.1}
+      SIDEWAYS_HIGH: {xgboost: 0.3, lightgbm: 0.3, lstm: 0.3, rf: 0.1}
+      SIDEWAYS_LOW: {xgboost: 0.3, lightgbm: 0.2, lstm: 0.3, rf: 0.2}
+
+signal:
+  threshold_buy: 0.65
+  threshold_sell: 0.35
+  min_confirmations: 2
+  require_closed_candle: true
+
+risk:
+  kelly_fraction: 0.25
+  max_risk_per_trade: 0.015
+  atr_stop_multiplier: 2.0
+  atr_take_profit_multiplier: 4.0
+  max_open_positions: 2
+  circuit_breaker:
+    max_consecutive_losses: 3
+    max_daily_loss_pct: 0.05
+    halt_duration_hours: 24
+
+backtest:
+  train_window_days: 30
+  test_window_days: 7
+  step_days: 7
+  commission_pct: 0.001
+  slippage_pct: 0.0005
+  initial_capital: 10000
+
+monitoring:
+  log_level: "INFO"
+  telegram:
+    enabled: false
+  dashboard:
+    port: 8501
