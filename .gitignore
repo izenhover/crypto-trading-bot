@@ -7,7 +7,7 @@ config/api_keys.env
 
 # Data & Models (PROTECTED IP)
 data/
-models/
+data/models/
 *.pkl
 *.pt
 *.parquet
