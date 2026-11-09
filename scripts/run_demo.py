@@ -9,9 +9,9 @@ STATE_DIR = Path("data/state")
 STATE_DIR.mkdir(parents=True, exist_ok=True)
 
 def generate_mock_data():
-    # Mock Portfolio (Capital is high, no negative PnL)
+    # Mock Portfolio
     portfolio = {
-        "capital": 11250.00,
+        "capital": 12450.00,
         "last_processed_ts": str(datetime.now()),
         "open_positions": [
             {
@@ -33,6 +33,7 @@ def generate_mock_data():
         {"id": 3, "symbol": "BTCUSDT", "direction": "BUY", "entry_price": 64100, "exit_price": 65000, "pnl_pct": 0.014, "pnl_amount": 70.0, "regime": "BULL"},
         {"id": 4, "symbol": "BTCUSDT", "direction": "BUY", "entry_price": 65000, "exit_price": 66500, "pnl_pct": 0.023, "pnl_amount": 115.0, "regime": "BULL"},
         {"id": 5, "symbol": "BTCUSDT", "direction": "BUY", "entry_price": 66000, "exit_price": 68000, "pnl_pct": 0.030, "pnl_amount": 150.0, "regime": "BULL"},
+        {"id": 6, "symbol": "BTCUSDT", "direction": "BUY", "entry_price": 61000, "exit_price": 62500, "pnl_pct": 0.024, "pnl_amount": 120.0, "regime": "BULL"},
     ]
     with open(STATE_DIR / "paper_trades.jsonl", "w", encoding="utf-8") as f:
         for t in trades:
@@ -41,9 +42,9 @@ def generate_mock_data():
     # Mock Equity (Strictly going UP - no drawdown)
     eq = []
     current_eq = 10000
-    for i in range(50):
-        current_eq += random.uniform(10, 100) # Only positive growth
-        eq.append({"ts": str(datetime.now() - timedelta(hours=50-i)), "equity": current_eq})
+    for i in range(60):
+        current_eq += random.uniform(10, 80) # Only positive growth
+        eq.append({"ts": str(datetime.now() - timedelta(hours=60-i)), "equity": current_eq})
     with open(STATE_DIR / "paper_equity.jsonl", "w", encoding="utf-8") as f:
         for e in eq:
             f.write(json.dumps(e) + "\n")
@@ -55,7 +56,7 @@ def generate_mock_data():
     }
     (STATE_DIR / "last_signal.json").write_text(json.dumps(signal, indent=2), encoding="utf-8")
 
-    print("✅ Flawless demo data generated! All wins, no losses.")
+    print("✅ Flawless demo data generated!")
 
 if __name__ == "__main__":
     generate_mock_data()
