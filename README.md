@@ -26,4 +26,4 @@ To demonstrate the UI, a `run_demo.py` script is included. It generates **mock d
    ```bash
    git clone https://github.com/izenhover/crypto-trading-bot.git
    cd crypto-trading-bot
-<img width="1440" height="900" alt="Screenshot (167)" src="https://github.com/user-attachments/assets/e72e1eae-02fe-4136-8979-a30eb4ee81d7" />
+<img width="1440" height="900" alt="Screenshot (210)" src="https://github.com/user-attachments/assets/5c531b4f-e146-4df2-8755-982b210ad8f7" />
